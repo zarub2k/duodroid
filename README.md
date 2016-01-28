@@ -3,9 +3,9 @@ Duodroid is an application which covers the following 2 application and its impr
 
 ## Football scores:
 Football scores application covers the following improvements,
-1. one
-2. Two
-3. Three
+* one
+* Two
+* Three
 
 ## Alexandria:
 Alexandria application covers the followng improvements,
