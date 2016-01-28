@@ -1,7 +1,5 @@
-# Duodroid
-This application contains two other applications.
-1. Football scores
-2. Alexandria
+#H1 Duodroid
+Duodroid is an application which covers the following 2 application and its improvements.
 
 #H2 Football scores:
 Football scores application covers the following improvements,
