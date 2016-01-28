@@ -9,6 +9,6 @@ Football scores application covers the following improvements,
 
 ## Alexandria:
 Alexandria application covers the followng improvements,
-1. One
-2. Two
-3. Three
+* One
+* Two
+* Three
