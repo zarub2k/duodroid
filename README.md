@@ -1,14 +1,14 @@
-#H1 Duodroid
+# Duodroid
 Duodroid is an application which covers the following 2 application and its improvements.
 
-#H2 Football scores:
+## Football scores:
 Football scores application covers the following improvements,
-1.
-2.
-3.
+1. one
+2. Two
+3. Three
 
-#H2 Alexandria:
+## Alexandria:
 Alexandria application covers the followng improvements,
-1.
-2.
-3.
+1. One
+2. Two
+3. Three
