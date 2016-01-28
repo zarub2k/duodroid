@@ -84,17 +84,14 @@ public class MyFetchService extends IntentService {
             JSON_data = buffer.toString();
             Log.v(LOG_TAG, "JSON Response: " + JSON_data.toString());
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             Log.e(LOG_TAG,"Exception here" + e.getMessage());
         }
         finally {
-            if(m_connection != null)
-            {
+            if(m_connection != null) {
                 m_connection.disconnect();
             }
-            if (reader != null)
-            {
+            if (reader != null) {
                 try {
                     reader.close();
                 }
