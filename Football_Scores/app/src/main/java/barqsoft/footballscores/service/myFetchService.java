@@ -38,7 +38,7 @@ public class MyFetchService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         getData("n2");
-        getData("p2");
+//        getData("p2");
     }
 
     private void getData (String timeFrame) {
