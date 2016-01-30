@@ -49,7 +49,8 @@ public class MyFetchService extends IntentService {
 
         Uri fetch_build = Uri.parse(BASE_URL).buildUpon().
                 appendQueryParameter(QUERY_TIME_FRAME, timeFrame).build();
-        Log.v(LOG_TAG, "The url we are looking at is: "+fetch_build.toString()); //log spam
+        Log.v(LOG_TAG, "The url we are looking at is: " + fetch_build.toString()); //log spam
+
         HttpURLConnection m_connection = null;
         BufferedReader reader = null;
         String JSON_data = null;
@@ -63,44 +64,32 @@ public class MyFetchService extends IntentService {
 
             // Read the input stream into a String
             InputStream inputStream = m_connection.getInputStream();
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder builder = new StringBuilder();
             if (inputStream == null) {
                 // Nothing to do.
                 return;
             }
-            reader = new BufferedReader(new InputStreamReader(inputStream));
 
+            reader = new BufferedReader(new InputStreamReader(inputStream));
             String line;
             while ((line = reader.readLine()) != null) {
                 // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
                 // But it does make debugging a *lot* easier if you print out the completed
-                // buffer for debugging.
-                buffer.append(line + "\n");
+                // builder for debugging.
+                builder.append(line + "\n");
             }
-            if (buffer.length() == 0) {
+            if (builder.length() == 0) {
                 // Stream was empty.  No point in parsing.
                 return;
             }
-            JSON_data = buffer.toString();
+            JSON_data = builder.toString();
             Log.v(LOG_TAG, "JSON Response: " + JSON_data.toString());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Log.e(LOG_TAG,"Exception here" + e.getMessage());
+        } finally {
+            closeResource(m_connection, reader);
         }
-        finally {
-            if(m_connection != null) {
-                m_connection.disconnect();
-            }
-            if (reader != null) {
-                try {
-                    reader.close();
-                }
-                catch (IOException e)
-                {
-                    Log.e(LOG_TAG,"Error Closing Stream");
-                }
-            }
-        }
+
         try {
             if (JSON_data != null) {
                 //This bit is to check if the data contains any matches. If not, we call processJson on the dummy data
@@ -265,6 +254,22 @@ public class MyFetchService extends IntentService {
             Log.e(LOG_TAG,e.getMessage());
         }
 
+    }
+
+    private void closeResource(HttpURLConnection connection, BufferedReader reader) {
+        if (connection != null) {
+            connection.disconnect();
+        }
+
+        if (reader == null) {
+            return;
+        }
+
+        try {
+            reader.close();
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Error while closing the stream");
+        }
     }
 }
 
