@@ -24,6 +24,7 @@ import java.util.Vector;
 
 import barqsoft.footballscores.DatabaseContract;
 import barqsoft.footballscores.R;
+import barqsoft.footballscores.changes.FootballUriConnector;
 
 /**
  * Created by yehya khaled on 3/2/2015.
@@ -42,54 +43,55 @@ public class MyFetchService extends IntentService {
     }
 
     private void getData (String timeFrame) {
-        //Creating fetch URL
-        final String BASE_URL = "http://api.football-data.org/alpha/fixtures"; //Base URL
-        final String QUERY_TIME_FRAME = "timeFrame"; //Time Frame parameter to determine days
-        //final String QUERY_MATCH_DAY = "matchday";
+//        //Creating fetch URL
+//        final String BASE_URL = "http://api.football-data.org/alpha/fixtures"; //Base URL
+//        final String QUERY_TIME_FRAME = "timeFrame"; //Time Frame parameter to determine days
+//        //final String QUERY_MATCH_DAY = "matchday";
+//
+//        Uri fetch_build = Uri.parse(BASE_URL).buildUpon().
+//                appendQueryParameter(QUERY_TIME_FRAME, timeFrame).build();
+//        Log.v(LOG_TAG, "The url we are looking at is: " + fetch_build.toString()); //log spam
+//
+//        HttpURLConnection m_connection = null;
+//        BufferedReader reader = null;
+//        String JSON_data = null;
+//        //Opening Connection
+//        try {
+//            URL fetch = new URL(fetch_build.toString());
+//            m_connection = (HttpURLConnection) fetch.openConnection();
+//            m_connection.setRequestMethod("GET");
+//            m_connection.addRequestProperty("X-Auth-Token", getString(R.string.api_key));
+//            m_connection.connect();
+//
+//            // Read the input stream into a String
+//            InputStream inputStream = m_connection.getInputStream();
+//            StringBuilder builder = new StringBuilder();
+//            if (inputStream == null) {
+//                // Nothing to do.
+//                return;
+//            }
+//
+//            reader = new BufferedReader(new InputStreamReader(inputStream));
+//            String line;
+//            while ((line = reader.readLine()) != null) {
+//                // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
+//                // But it does make debugging a *lot* easier if you print out the completed
+//                // builder for debugging.
+//                builder.append(line + "\n");
+//            }
+//            if (builder.length() == 0) {
+//                // Stream was empty.  No point in parsing.
+//                return;
+//            }
+//            JSON_data = builder.toString();
+//            Log.v(LOG_TAG, "JSON Response: " + JSON_data.toString());
+//        } catch (Exception e) {
+//            Log.e(LOG_TAG,"Exception here" + e.getMessage());
+//        } finally {
+//            closeResource(m_connection, reader);
+//        }
 
-        Uri fetch_build = Uri.parse(BASE_URL).buildUpon().
-                appendQueryParameter(QUERY_TIME_FRAME, timeFrame).build();
-        Log.v(LOG_TAG, "The url we are looking at is: " + fetch_build.toString()); //log spam
-
-        HttpURLConnection m_connection = null;
-        BufferedReader reader = null;
-        String JSON_data = null;
-        //Opening Connection
-        try {
-            URL fetch = new URL(fetch_build.toString());
-            m_connection = (HttpURLConnection) fetch.openConnection();
-            m_connection.setRequestMethod("GET");
-            m_connection.addRequestProperty("X-Auth-Token", getString(R.string.api_key));
-            m_connection.connect();
-
-            // Read the input stream into a String
-            InputStream inputStream = m_connection.getInputStream();
-            StringBuilder builder = new StringBuilder();
-            if (inputStream == null) {
-                // Nothing to do.
-                return;
-            }
-
-            reader = new BufferedReader(new InputStreamReader(inputStream));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
-                // But it does make debugging a *lot* easier if you print out the completed
-                // builder for debugging.
-                builder.append(line + "\n");
-            }
-            if (builder.length() == 0) {
-                // Stream was empty.  No point in parsing.
-                return;
-            }
-            JSON_data = builder.toString();
-            Log.v(LOG_TAG, "JSON Response: " + JSON_data.toString());
-        } catch (Exception e) {
-            Log.e(LOG_TAG,"Exception here" + e.getMessage());
-        } finally {
-            closeResource(m_connection, reader);
-        }
-
+        String JSON_data = FootballUriConnector.getInstance().getJson(this, timeFrame);
         try {
             if (JSON_data != null) {
                 //This bit is to check if the data contains any matches. If not, we call processJson on the dummy data

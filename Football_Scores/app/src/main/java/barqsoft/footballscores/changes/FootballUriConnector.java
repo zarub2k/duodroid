@@ -30,6 +30,7 @@ public class FootballUriConnector {
     }
 
     public String getJson(Context context, String timeFrame) {
+        Log.v(LOG_TAG, "Fetch JSON for " + timeFrame);
         HttpURLConnection urlConnection = null;
         BufferedReader bufferedReader = null;
         StringBuilder jsonStringBuilder = new StringBuilder();
