@@ -24,8 +24,9 @@ public class PagerFragment extends Fragment {
     private myPageAdapter mPagerAdapter;
     private MainScreenFragment[] viewFragments = new MainScreenFragment[5];
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.pager_fragment, container, false);
         mPagerHandler = (ViewPager) rootView.findViewById(R.id.pager);
         mPagerAdapter = new myPageAdapter(getChildFragmentManager());
@@ -40,7 +41,7 @@ public class PagerFragment extends Fragment {
         mPagerHandler.setCurrentItem(MainActivity.current_fragment);
         return rootView;
     }
-    
+
     private class myPageAdapter extends FragmentStatePagerAdapter
     {
         @Override
