@@ -18,8 +18,7 @@ import java.util.Date;
 /**
  * Created by yehya khaled on 2/27/2015.
  */
-public class PagerFragment extends Fragment
-{
+public class PagerFragment extends Fragment {
     public static final int NUM_PAGES = 5;
     public ViewPager mPagerHandler;
     private myPageAdapter mPagerAdapter;
@@ -41,6 +40,7 @@ public class PagerFragment extends Fragment
         mPagerHandler.setCurrentItem(MainActivity.current_fragment);
         return rootView;
     }
+    
     private class myPageAdapter extends FragmentStatePagerAdapter
     {
         @Override
