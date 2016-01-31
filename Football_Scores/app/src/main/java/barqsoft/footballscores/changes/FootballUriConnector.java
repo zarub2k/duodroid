@@ -15,6 +15,8 @@ import barqsoft.footballscores.R;
 
 /**
  * @author tham
+ *
+ * Uri connector class for Football application
  */
 public class FootballUriConnector {
     private static final String LOG_TAG = FootballUriConnector.class.getSimpleName();

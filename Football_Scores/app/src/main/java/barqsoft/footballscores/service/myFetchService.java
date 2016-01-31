@@ -43,80 +43,29 @@ public class MyFetchService extends IntentService {
     }
 
     private void getData (String timeFrame) {
-//        //Creating fetch URL
-//        final String BASE_URL = "http://api.football-data.org/alpha/fixtures"; //Base URL
-//        final String QUERY_TIME_FRAME = "timeFrame"; //Time Frame parameter to determine days
-//        //final String QUERY_MATCH_DAY = "matchday";
-//
-//        Uri fetch_build = Uri.parse(BASE_URL).buildUpon().
-//                appendQueryParameter(QUERY_TIME_FRAME, timeFrame).build();
-//        Log.v(LOG_TAG, "The url we are looking at is: " + fetch_build.toString()); //log spam
-//
-//        HttpURLConnection m_connection = null;
-//        BufferedReader reader = null;
-//        String JSON_data = null;
-//        //Opening Connection
-//        try {
-//            URL fetch = new URL(fetch_build.toString());
-//            m_connection = (HttpURLConnection) fetch.openConnection();
-//            m_connection.setRequestMethod("GET");
-//            m_connection.addRequestProperty("X-Auth-Token", getString(R.string.api_key));
-//            m_connection.connect();
-//
-//            // Read the input stream into a String
-//            InputStream inputStream = m_connection.getInputStream();
-//            StringBuilder builder = new StringBuilder();
-//            if (inputStream == null) {
-//                // Nothing to do.
-//                return;
-//            }
-//
-//            reader = new BufferedReader(new InputStreamReader(inputStream));
-//            String line;
-//            while ((line = reader.readLine()) != null) {
-//                // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
-//                // But it does make debugging a *lot* easier if you print out the completed
-//                // builder for debugging.
-//                builder.append(line + "\n");
-//            }
-//            if (builder.length() == 0) {
-//                // Stream was empty.  No point in parsing.
-//                return;
-//            }
-//            JSON_data = builder.toString();
-//            Log.v(LOG_TAG, "JSON Response: " + JSON_data.toString());
-//        } catch (Exception e) {
-//            Log.e(LOG_TAG,"Exception here" + e.getMessage());
-//        } finally {
-//            closeResource(m_connection, reader);
-//        }
-
-        String JSON_data = FootballUriConnector.getInstance().getJson(this, timeFrame);
+        String jsonData = FootballUriConnector.getInstance().getJson(this, timeFrame);
         try {
-            if (JSON_data != null) {
+            if (jsonData != null) {
                 //This bit is to check if the data contains any matches. If not, we call processJson on the dummy data
-                JSONArray matches = new JSONObject(JSON_data).getJSONArray("fixtures");
+                JSONArray matches = new JSONObject(jsonData).getJSONArray("fixtures");
                 if (matches.length() == 0) {
                     //if there is no data, call the function on dummy data
                     //this is expected behavior during the off season.
-                    processJSONdata(getString(R.string.dummy_data), getApplicationContext(), false);
+//                    processJSONdata(getString(R.string.dummy_data), getApplicationContext(), false);
                     return;
                 }
 
 
-                processJSONdata(JSON_data, getApplicationContext(), true);
+                processJSONdata(jsonData, getApplicationContext(), true);
             } else {
-                //Could not Connect
-                Log.d(LOG_TAG, "Could not connect to server.");
+                Log.d(LOG_TAG, "Could not connect to the server.");
             }
-        }
-        catch(Exception e)
-        {
-            Log.e(LOG_TAG,e.getMessage());
+        } catch(Exception e) {
+            Log.e(LOG_TAG, "Error happened while calling getData(): " + e.getMessage());
         }
     }
-    private void processJSONdata (String JSONdata,Context mContext, boolean isReal)
-    {
+
+    private void processJSONdata (String JSONdata,Context mContext, boolean isReal) {
         //JSON data
         // This set of league codes is for the 2015/2016 season. In fall of 2016, they will need to
         // be updated. Feel free to use the codes
