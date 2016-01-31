@@ -65,6 +65,7 @@ public class FootballUriConnector {
             closeResource(urlConnection, bufferedReader);
         }
 
+        Log.v(LOG_TAG, "JSON response: " + jsonStringBuilder.toString());
         return jsonStringBuilder.toString();
     }
 
