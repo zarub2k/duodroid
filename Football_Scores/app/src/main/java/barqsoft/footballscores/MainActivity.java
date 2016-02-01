@@ -45,9 +45,8 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_about)
-        {
-            Intent start_about = new Intent(this,AboutActivity.class);
+        if (id == R.id.action_about) {
+            Intent start_about = new Intent(this, AboutActivity.class);
             startActivity(start_about);
             return true;
         }
@@ -56,8 +55,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState)
-    {
+    protected void onSaveInstanceState(Bundle outState) {
         Log.v(save_tag,"will save");
         Log.v(save_tag,"fragment: "+String.valueOf(my_main.mPagerHandler.getCurrentItem()));
         Log.v(save_tag,"selected id: "+selected_match_id);
