@@ -26,51 +26,38 @@ public class MainScreenFragment extends Fragment implements LoaderManager.Loader
 
     public MainScreenFragment() {}
 
-    private void updateScores() {
-        Intent service_start = new Intent(getActivity(), MyFetchService.class);
-        getActivity().startService(service_start);
-    }
-
-    public void setFragmentDate(String date)
-    {
-        fragmentdate[0] = date;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              final Bundle savedInstanceState) {
-        updateScores();
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         final ListView score_list = (ListView) rootView.findViewById(R.id.scores_list);
-        mAdapter = new ScoresAdapter(getActivity(),null,0);
+        mAdapter = new ScoresAdapter(getActivity(), null, 0);
         score_list.setAdapter(mAdapter);
         getLoaderManager().initLoader(SCORES_LOADER, null, this);
         mAdapter.detail_match_id = MainActivity.selected_match_id;
-        score_list.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
+        score_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ViewHolder selected = (ViewHolder) view.getTag();
                 mAdapter.detail_match_id = selected.match_id;
                 MainActivity.selected_match_id = (int) selected.match_id;
                 mAdapter.notifyDataSetChanged();
             }
         });
+
+        updateScores();
         
         return rootView;
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle)
-    {
-        return new CursorLoader(getActivity(),DatabaseContract.scores_table.buildScoreWithDate(),
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        return new CursorLoader(getActivity(), DatabaseContract.scores_table.buildScoreWithDate(),
                 null,null,fragmentdate,null);
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor)
-    {
+    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         //Log.v(FetchScoreTask.LOG_TAG,"loader finished");
         //cursor.moveToFirst();
         /*
@@ -94,10 +81,18 @@ public class MainScreenFragment extends Fragment implements LoaderManager.Loader
     }
 
     @Override
-    public void onLoaderReset(Loader<Cursor> cursorLoader)
-    {
+    public void onLoaderReset(Loader<Cursor> cursorLoader) {
         mAdapter.swapCursor(null);
     }
 
+    public void setFragmentDate(String date)
+    {
+        fragmentdate[0] = date;
+    }
+
+    private void updateScores() {
+        Intent service_start = new Intent(getActivity(), MyFetchService.class);
+        getActivity().startService(service_start);
+    }
 
 }
