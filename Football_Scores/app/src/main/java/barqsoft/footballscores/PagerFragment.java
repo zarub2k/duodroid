@@ -33,7 +33,7 @@ public class PagerFragment extends Fragment {
         mPagerAdapter = new MyPageAdapter(getChildFragmentManager());
 
         for (int i = 0; i < NUM_PAGES; i++) {
-            Date fragmentdate = new Date(System.currentTimeMillis()+((i-2)*86400000));
+            Date fragmentdate = new Date(System.currentTimeMillis() + ((i - 2) * 86400000));
             SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");
             viewFragments[i] = new MainScreenFragment();
             viewFragments[i].setFragmentDate(mformat.format(fragmentdate));
@@ -45,6 +45,9 @@ public class PagerFragment extends Fragment {
     }
 
     private class MyPageAdapter extends FragmentStatePagerAdapter {
+        public MyPageAdapter(FragmentManager fm) {
+            super(fm);
+        }
 
         @Override
         public Fragment getItem(int i)
@@ -53,15 +56,9 @@ public class PagerFragment extends Fragment {
         }
 
         @Override
-        public int getCount()
-        {
+        public int getCount() {
             return NUM_PAGES;
         }
-
-        public MyPageAdapter(FragmentManager fm) {
-            super(fm);
-        }
-        // Returns the page title for the top indicator
 
         @Override
         public CharSequence getPageTitle(int position) {
