@@ -38,8 +38,8 @@ public class MyFetchService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        getData("n2");
-        getData("p2");
+        getData("n1");
+        getData("p1");
     }
 
     private void getData (String timeFrame) {

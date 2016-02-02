@@ -71,7 +71,7 @@ public class FootballUriConnector {
 
     /**
      * Method to close the connection once the data is read from the connection
-     * 
+     *
      * @param connection
      * @param reader
      */
