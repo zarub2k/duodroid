@@ -69,6 +69,12 @@ public class FootballUriConnector {
         return jsonStringBuilder.toString();
     }
 
+    /**
+     * Method to close the connection once the data is read from the connection
+     * 
+     * @param connection
+     * @param reader
+     */
     private void closeResource(HttpURLConnection connection, BufferedReader reader) {
         if (connection != null) {
             connection.disconnect();
