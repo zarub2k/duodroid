@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +20,12 @@ import java.util.Date;
  * Created by yehya khaled on 2/27/2015.
  */
 public class PagerFragment extends Fragment {
+    private static final String LOG_TAG = PagerFragment.class.getSimpleName();
+
     public static final int NUM_PAGES = 5;
     public ViewPager mPagerHandler;
     private MyPageAdapter mPagerAdapter;
-    private MainScreenFragment[] viewFragments = new MainScreenFragment[NUM_PAGES];
+//    private MainScreenFragment[] viewFragments = new MainScreenFragment[NUM_PAGES];
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -30,14 +33,14 @@ public class PagerFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.pager_fragment, container, false);
         mPagerHandler = (ViewPager) rootView.findViewById(R.id.pager);
-        mPagerAdapter = new MyPageAdapter(getChildFragmentManager());
+        mPagerAdapter = new MyPageAdapter(getFragmentManager());
 
-        for (int i = 0; i < NUM_PAGES; i++) {
-            Date fragmentdate = new Date(System.currentTimeMillis() + ((i - 2) * 86400000));
-            SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");
-            viewFragments[i] = new MainScreenFragment();
-            viewFragments[i].setFragmentDate(mformat.format(fragmentdate));
-        }
+//        for (int i = 0; i < NUM_PAGES; i++) {
+//            Date fragmentdate = new Date(System.currentTimeMillis() + ((i - 2) * 86400000));
+//            SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");
+//            viewFragments[i] = new MainScreenFragment();
+//            viewFragments[i].setFragmentDate(mformat.format(fragmentdate));
+//        }
 
         mPagerHandler.setAdapter(mPagerAdapter);
         mPagerHandler.setCurrentItem(MainActivity.current_fragment);
@@ -50,9 +53,15 @@ public class PagerFragment extends Fragment {
         }
 
         @Override
-        public Fragment getItem(int i)
-        {
-            return viewFragments[i];
+        public Fragment getItem(int i) {
+//            return viewFragments[i];
+
+            Date fragmentdate = new Date(System.currentTimeMillis() + ((i - 2) * 86400000));
+            SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");
+            MainScreenFragment screenFragment = new MainScreenFragment();
+            screenFragment.setFragmentDate(mformat.format(fragmentdate));
+            Log.v(LOG_TAG, "Value of i: " + i + " > " + mformat.format(fragmentdate));
+            return screenFragment;
         }
 
         @Override
