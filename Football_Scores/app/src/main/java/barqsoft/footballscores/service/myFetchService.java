@@ -38,8 +38,8 @@ public class MyFetchService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        getData("n1");
-        getData("p1");
+        getData("n2");
+        getData("p2");
     }
 
     private void getData (String timeFrame) {
@@ -205,22 +205,6 @@ public class MyFetchService extends IntentService {
             Log.e(LOG_TAG,e.getMessage());
         }
 
-    }
-
-    private void closeResource(HttpURLConnection connection, BufferedReader reader) {
-        if (connection != null) {
-            connection.disconnect();
-        }
-
-        if (reader == null) {
-            return;
-        }
-
-        try {
-            reader.close();
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "Error while closing the stream");
-        }
     }
 }
 
