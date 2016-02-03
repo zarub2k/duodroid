@@ -54,8 +54,6 @@ public class PagerFragment extends Fragment {
 
         @Override
         public Fragment getItem(int i) {
-//            return viewFragments[i];
-
             Date fragmentdate = new Date(System.currentTimeMillis() + ((i - 2) * 86400000));
             SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");
             MainScreenFragment screenFragment = new MainScreenFragment();
@@ -89,8 +87,6 @@ public class PagerFragment extends Fragment {
             } else if ( julianDay == currentJulianDay -1) {
                 return context.getString(R.string.yesterday);
             } else {
-                Time time = new Time();
-                time.setToNow();
                 // Otherwise, the format is just the day of the week (e.g "Wednesday".
                 SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE");
                 return dayFormat.format(dateInMillis);
