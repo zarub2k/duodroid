@@ -6,6 +6,8 @@ import android.util.Log;
 
 /**
  * @author tham
+ *
+ * Intent service for fetching football score in the background
  */
 public class FootballScoreIntentService extends IntentService {
     private static final String LOG_TAG = FootballScoreIntentService.class.getSimpleName();
