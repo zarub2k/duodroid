@@ -65,7 +65,7 @@ public class MyFetchService extends IntentService {
         }
     }
 
-    private void processJSONdata (String JSONdata,Context mContext, boolean isReal) {
+    private void processJSONdata (String JSONdata, Context mContext, boolean isReal) {
         //JSON data
         // This set of league codes is for the 2015/2016 season. In fall of 2016, they will need to
         // be updated. Feel free to use the codes
@@ -199,12 +199,9 @@ public class MyFetchService extends IntentService {
                     DatabaseContract.BASE_CONTENT_URI,insert_data);
 
             //Log.v(LOG_TAG,"Succesfully Inserted : " + String.valueOf(inserted_data));
-        }
-        catch (JSONException e)
-        {
+        } catch (JSONException e) {
             Log.e(LOG_TAG,e.getMessage());
         }
-
     }
 }
 

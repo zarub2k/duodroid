@@ -97,6 +97,7 @@ public class FootballUriConnector {
                 .appendQueryParameter(QUERY_TIME_FRAME, timeFrame)
                 .build();
 
+        Log.v(LOG_TAG, "getFixuresUri: " + fixuresUri.toString());
         return fixuresUri;
     }
 }

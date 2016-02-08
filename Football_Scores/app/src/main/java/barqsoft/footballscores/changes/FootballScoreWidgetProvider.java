@@ -1,14 +1,9 @@
 package barqsoft.footballscores.changes;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.RemoteViews;
-
-import barqsoft.footballscores.MainActivity;
-import barqsoft.footballscores.R;
 
 /**
  * @author tham
@@ -28,7 +23,7 @@ public class FootballScoreWidgetProvider extends AppWidgetProvider {
 //            appWidgetManager.updateAppWidget(appWidgetId, widgetView);
 //        }
 
-        context.startService(new Intent(context, FootballScoreIntentService.class));
+        context.startService(new Intent(context, FootballScoreService.class));
         super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
 
@@ -37,7 +32,7 @@ public class FootballScoreWidgetProvider extends AppWidgetProvider {
         super.onReceive(context, intent);
 
         if (FootballScoreSyncAdapter.ACTION_DATA_UPDATED.equals(intent.getAction())) {
-            context.startService(new Intent(context, FootballScoreIntentService.class));
+            context.startService(new Intent(context, FootballScoreService.class));
         }
     }
 }
