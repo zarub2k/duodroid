@@ -2,6 +2,8 @@ package barqsoft.footballscores.changes;
 
 /**
  * @author tham
+ *
+ * Keys used to parse Fixures Json response
  */
 public enum FixureJsonKeys {
     FIXURES("fixtures"),
