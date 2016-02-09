@@ -20,7 +20,11 @@ public class FootballScoreService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         Log.v(LOG_TAG, "Enters onHandleIntent");
 
-        final String fixuresJson = FootballUriConnector.getInstance().getJson(this, "n2");
+        final String fixuresJson = FootballUriConnector.getInstance().getJson(this, "n3");
         FixuresJsonProcessor.getInstance().getFixures(fixuresJson);
+
+        final Intent broadcastIntent = new Intent(FootballScoreSyncAdapter.ACTION_DATA_UPDATED);
+        broadcastIntent.putExtra("Fixures", fixuresJson);
+        sendBroadcast(broadcastIntent);
     }
 }

@@ -4,11 +4,13 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 /**
  * @author tham
  */
 public class FootballScoreWidgetProvider extends AppWidgetProvider {
+    private static final String LOG_TAG = FootballScoreWidgetProvider.class.getSimpleName();
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -29,6 +31,9 @@ public class FootballScoreWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Log.v(LOG_TAG, "Inside onReceive method");
+        Log.v(LOG_TAG, "Data available here is: " + intent.getStringExtra("Fixures"));
+
         super.onReceive(context, intent);
 
         if (FootballScoreSyncAdapter.ACTION_DATA_UPDATED.equals(intent.getAction())) {

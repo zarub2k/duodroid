@@ -60,7 +60,7 @@ public class FootballUriConnector {
             }
 
         } catch (Exception e) {
-            Log.e(LOG_TAG, "Error happened while fetching data: " + e.getMessage());
+            Log.e(LOG_TAG, "Error happened while fetching data:", e);
         } finally {
             closeResource(urlConnection, bufferedReader);
         }
