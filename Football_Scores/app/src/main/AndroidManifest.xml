@@ -33,7 +33,7 @@
         </activity>
 
         <service android:name=".service.MyFetchService" />
-        <service android:name=".changes.FootballScoreService" />
+        <service android:name=".changes.FootballFixuresService" />
 
         <receiver
             android:name=".changes.FootballScoreWidgetProvider"

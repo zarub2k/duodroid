@@ -13,8 +13,6 @@ import android.os.Bundle;
 public class FootballScoreSyncAdapter extends AbstractThreadedSyncAdapter {
     private static final String LOG_TAG = FootballScoreSyncAdapter.class.getSimpleName();
 
-    public static final String ACTION_DATA_UPDATED = "barqsoft.footballscores.changes.ACTION_DATA_UPDATED";
-
     public FootballScoreSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
     }
