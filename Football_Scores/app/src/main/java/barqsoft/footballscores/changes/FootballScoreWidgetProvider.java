@@ -38,8 +38,9 @@ public class FootballScoreWidgetProvider extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
+        final String fixuresJson = intent.getStringExtra(Constant.FIXURES_DATA);
         Log.v(LOG_TAG, "Inside onReceive method");
-        Log.v(LOG_TAG, "Data available here is: " + intent.getStringExtra(Constant.FIXURES_DATA));
+        Log.v(LOG_TAG, "Fixures Json available here is: " + fixuresJson);
 
         if (Constant.ACTION_DATA_UPDATED.equals(intent.getAction())) {
             Log.v(LOG_TAG, "Success!!!!");
