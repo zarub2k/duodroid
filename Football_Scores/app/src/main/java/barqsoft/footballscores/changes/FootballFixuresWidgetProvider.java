@@ -2,6 +2,7 @@ package barqsoft.footballscores.changes;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -9,13 +10,11 @@ import android.util.Log;
 /**
  * @author tham
  */
-public class FootballScoreWidgetProvider extends AppWidgetProvider {
-    private static final String LOG_TAG = FootballScoreWidgetProvider.class.getSimpleName();
+public class FootballFixuresWidgetProvider extends AppWidgetProvider {
+    private static final String LOG_TAG = FootballFixuresWidgetProvider.class.getSimpleName();
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        super.onUpdate(context, appWidgetManager, appWidgetIds);
-
         Log.v(LOG_TAG, "Inside onUpdate method");
 //        for (int appWidgetId : appWidgetIds) {
 //            final RemoteViews widgetView = new RemoteViews(context.getPackageName(),
@@ -37,20 +36,13 @@ public class FootballScoreWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        super.onReceive(context, intent);
-        final String fixuresJson = intent.getStringExtra(Constant.FIXURES_DATA);
-        Log.v(LOG_TAG, "Inside onReceive method");
-        Log.v(LOG_TAG, "Fixures Json available here is: " + fixuresJson);
+//        super.onReceive(context, intent);
+        Log.v(LOG_TAG, "Inside onReceive method: " + intent.getAction());
 
         if (Constant.ACTION_DATA_UPDATED.equals(intent.getAction())) {
+            final String fixuresJson = intent.getStringExtra(Constant.FIXURES_DATA);
+            Log.v(LOG_TAG, "Fixures Json available here is: " + fixuresJson);
             Log.v(LOG_TAG, "Success!!!!");
         }
-
-
-//        super.onReceive(context, intent);
-//
-//        if (FootballScoreSyncAdapter.ACTION_DATA_UPDATED.equals(intent.getAction())) {
-//            context.startService(new Intent(context, FootballFixuresService.class));
-//        }
     }
 }
