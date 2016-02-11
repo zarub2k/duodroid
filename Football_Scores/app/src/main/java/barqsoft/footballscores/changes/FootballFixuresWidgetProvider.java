@@ -32,6 +32,8 @@ public class FootballFixuresWidgetProvider extends AppWidgetProvider {
             intent.putExtra(Constant.WIDGET_ID, appWidgetId);
             context.startService(intent);
         }
+
+        super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
 
     @Override
@@ -44,5 +46,7 @@ public class FootballFixuresWidgetProvider extends AppWidgetProvider {
             Log.v(LOG_TAG, "Fixures Json available here is: " + fixuresJson);
             Log.v(LOG_TAG, "Success!!!!");
         }
+
+        super.onReceive(context, intent);
     }
 }

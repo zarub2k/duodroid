@@ -28,17 +28,17 @@ public class FootballFixuresService extends IntentService {
         final int widgetId = intent.getIntExtra(Constant.WIDGET_ID, 0);
         Log.v(LOG_TAG, "Widget Id in onHandleIntent: " + widgetId);
 
-        final Intent broadcastIntent = new Intent(Constant.ACTION_DATA_UPDATED);
-        broadcastIntent.putExtra(Constant.FIXURES_DATA, fixuresJson);
-        final LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(this);
-        broadcastManager.sendBroadcast(broadcastIntent);
+//        final Intent broadcastIntent = new Intent(Constant.ACTION_DATA_UPDATED);
+//        broadcastIntent.putExtra(Constant.FIXURES_DATA, fixuresJson);
+//        final LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(this);
+//        broadcastManager.sendBroadcast(broadcastIntent);
 
 //        final AppWidgetManager widgetManager = AppWidgetManager.getInstance(this);
 //        widgetManager.updateAppWidget();
 
-//        final Intent broadcastIntent = new Intent(Constant.ACTION_DATA_UPDATED);
-//        broadcastIntent.putExtra(Constant.FIXURES_DATA, fixuresJson);
-//        sendBroadcast(broadcastIntent);
+        final Intent broadcastIntent = new Intent(Constant.ACTION_DATA_UPDATED);
+        broadcastIntent.putExtra(Constant.FIXURES_DATA, fixuresJson);
+        sendBroadcast(broadcastIntent);
 
         //Stop the current service execution
         this.stopSelf();
