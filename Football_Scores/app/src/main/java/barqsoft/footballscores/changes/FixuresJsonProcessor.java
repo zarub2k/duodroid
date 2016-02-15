@@ -35,7 +35,7 @@ public class FixuresJsonProcessor {
             Log.e(LOG_TAG, "Error happened while parsing fixures: " + e);
         }
 
-        return null;
+        return new ArrayList<>(2);
     }
 
     private List<Fixure> getFixures(JSONArray fixuresJsonArray) throws JSONException {

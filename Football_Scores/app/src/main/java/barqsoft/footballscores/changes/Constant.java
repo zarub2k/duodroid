@@ -2,6 +2,8 @@ package barqsoft.footballscores.changes;
 
 /**
  * @author tham
+ *
+ * Constant file for football application
  */
 public interface Constant {
     String WIDGET_ID = "WIDGET_ID";

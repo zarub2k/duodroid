@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import java.util.List;
+
 /**
  * @author tham
  */
@@ -38,7 +40,6 @@ public class FootballFixuresWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        super.onReceive(context, intent);
         Log.v(LOG_TAG, "Inside onReceive method: " + intent.getAction());
 
         if (Constant.ACTION_DATA_UPDATED.equals(intent.getAction())) {
@@ -48,5 +49,19 @@ public class FootballFixuresWidgetProvider extends AppWidgetProvider {
         }
 
         super.onReceive(context, intent);
+    }
+
+    private void updateWidgetUi(String fixuresJson) {
+        final List<Fixure> fixures = FixuresJsonProcessor.getInstance().getFixures(fixuresJson);
+        if (fixures == null || fixures.isEmpty()) {
+            Log.v(LOG_TAG, "Fixures list is empty");
+            return;
+        }
+
+        Log.v(LOG_TAG, "Size of fixures available: " + fixures.size());
+
+        for (Fixure fixure : fixures) {
+            
+        }
     }
 }
