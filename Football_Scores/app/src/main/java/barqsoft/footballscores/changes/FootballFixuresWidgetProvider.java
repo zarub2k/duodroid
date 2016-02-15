@@ -61,7 +61,7 @@ public class FootballFixuresWidgetProvider extends AppWidgetProvider {
         Log.v(LOG_TAG, "Size of fixures available: " + fixures.size());
 
         for (Fixure fixure : fixures) {
-            
+
         }
     }
 }
