@@ -33,7 +33,7 @@
 
         <service android:name=".service.MyFetchService" />
         <service android:name=".changes.FootballFixuresService" />
-        <service android:name=".changes.FootballFixuresRemoteViewService"
+        <service android:name=".changes.FixuresRemoteViewService"
             android:permission="android.permission.BIND_REMOTEVIEWS"
             />
 
