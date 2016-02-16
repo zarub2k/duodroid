@@ -16,6 +16,8 @@ import barqsoft.footballscores.R;
 
 /**
  * @author tham
+ *
+ * Factory class implementation for remote view
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class FixuresRemoteViewFactory implements RemoteViewsFactory {
