@@ -46,12 +46,14 @@ public class FootballFixuresWidgetProvider extends AppWidgetProvider {
             final String fixuresJson = intent.getStringExtra(Constant.FIXURES_DATA);
             Log.v(LOG_TAG, "Fixures Json available here is: " + fixuresJson);
             Log.v(LOG_TAG, "Success!!!!");
+
+            updateWidgetUi(context, fixuresJson);
         }
 
         super.onReceive(context, intent);
     }
 
-    private void updateWidgetUi(String fixuresJson) {
+    private void updateWidgetUi(Context context, String fixuresJson) {
         final List<Fixure> fixures = FixuresJsonProcessor.getInstance().getFixures(fixuresJson);
         if (fixures == null || fixures.isEmpty()) {
             Log.v(LOG_TAG, "Fixures list is empty");

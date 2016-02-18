@@ -71,7 +71,7 @@ public class FixuresRemoteViewFactory implements RemoteViewsFactory {
 
     @Override
     public int getViewTypeCount() {
-        return 0;
+        return 1;
     }
 
     @Override
@@ -81,7 +81,7 @@ public class FixuresRemoteViewFactory implements RemoteViewsFactory {
 
     @Override
     public boolean hasStableIds() {
-        return false;
+        return true;
     }
 
     private Fixure getFixure(String homeTeam, String awayTeam) {
