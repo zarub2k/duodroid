@@ -30,14 +30,14 @@ public class FixuresRemoteViewFactory implements RemoteViewsFactory {
 
     public FixuresRemoteViewFactory(Context context, Intent intent) {
         this.context = context;
-        widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+        widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
+                AppWidgetManager.INVALID_APPWIDGET_ID);
+        populateFixures();
     }
 
     @Override
     public void onCreate() {
-        fixures.add(getFixure("H1", "A1"));
-        fixures.add(getFixure("H2", "A2"));
-        fixures.add(getFixure("H3", "A3"));
+        populateFixures();
     }
 
     @Override
@@ -82,6 +82,12 @@ public class FixuresRemoteViewFactory implements RemoteViewsFactory {
     @Override
     public boolean hasStableIds() {
         return true;
+    }
+
+    private void populateFixures() {
+        fixures.add(getFixure("H1", "A1"));
+        fixures.add(getFixure("H2", "A2"));
+        fixures.add(getFixure("H3", "A3"));
     }
 
     private Fixure getFixure(String homeTeam, String awayTeam) {

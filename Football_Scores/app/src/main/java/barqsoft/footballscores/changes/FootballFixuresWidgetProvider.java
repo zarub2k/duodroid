@@ -6,8 +6,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.RemoteViews;
 
 import java.util.List;
+
+import barqsoft.footballscores.R;
 
 /**
  * @author tham
@@ -47,13 +50,16 @@ public class FootballFixuresWidgetProvider extends AppWidgetProvider {
             Log.v(LOG_TAG, "Fixures Json available here is: " + fixuresJson);
             Log.v(LOG_TAG, "Success!!!!");
 
-            updateWidgetUi(context, fixuresJson);
+            final int widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
+                    AppWidgetManager.INVALID_APPWIDGET_ID);
+
+            updateWidgetUi(context, widgetId, fixuresJson);
         }
 
         super.onReceive(context, intent);
     }
 
-    private void updateWidgetUi(Context context, String fixuresJson) {
+    private void updateWidgetUi(Context context, int widgetId, String fixuresJson) {
         final List<Fixure> fixures = FixuresJsonProcessor.getInstance().getFixures(fixuresJson);
         if (fixures == null || fixures.isEmpty()) {
             Log.v(LOG_TAG, "Fixures list is empty");
@@ -62,8 +68,17 @@ public class FootballFixuresWidgetProvider extends AppWidgetProvider {
 
         Log.v(LOG_TAG, "Size of fixures available: " + fixures.size());
 
-        for (Fixure fixure : fixures) {
+        final Fixure fixure = fixures.get(0);
+        final RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
+                R.layout.appwidget_item);
+        remoteViews.setTextViewText(R.id.home_name, fixure.getHomeTeamName());
+        remoteViews.setTextViewText(R.id.away_name, fixure.getAwayTeamName());
 
-        }
+        final Intent intent = new Intent(context, FixuresRemoteViewService.class);
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+        remoteViews.setRemoteAdapter(widgetId, intent);
+
+        final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        appWidgetManager.updateAppWidget(widgetId, remoteViews);
     }
 }

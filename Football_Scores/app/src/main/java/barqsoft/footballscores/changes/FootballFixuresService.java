@@ -38,6 +38,7 @@ public class FootballFixuresService extends IntentService {
 
         final Intent broadcastIntent = new Intent(Constant.ACTION_DATA_UPDATED);
         broadcastIntent.putExtra(Constant.FIXURES_DATA, fixuresJson);
+        broadcastIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
         sendBroadcast(broadcastIntent);
 
         //Stop the current service execution

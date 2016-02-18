@@ -10,7 +10,6 @@ import android.widget.RemoteViewsService;
  *
  * Fixures remote view implementation for widgets list view
  */
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class FixuresRemoteViewService extends RemoteViewsService {
 
     @Override
