@@ -45,8 +45,6 @@ public class FootballFixuresWidgetProvider extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         Log.v(LOG_TAG, "Inside onReceive method: " + intent.getAction());
 
-        super.onReceive(context, intent);
-
         if (Constant.ACTION_DATA_UPDATED.equals(intent.getAction())) {
             final String fixuresJson = intent.getStringExtra(Constant.FIXURES_DATA);
             Log.v(LOG_TAG, "Fixures Json available here is: " + fixuresJson);
@@ -57,6 +55,8 @@ public class FootballFixuresWidgetProvider extends AppWidgetProvider {
 
             updateWidgetUi(context, widgetId, fixuresJson);
         }
+
+        super.onReceive(context, intent);
     }
 
     private void updateWidgetUi(Context context, int widgetId, String fixuresJson) {
@@ -75,18 +75,18 @@ public class FootballFixuresWidgetProvider extends AppWidgetProvider {
 //        remoteViews.setRemoteAdapter(widgetId, R.id.fixuresListView, intent);
 
 
-        for (Fixure fixure : fixures) {
-            final RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
-                    R.layout.appwidget_view);
-            remoteViews.setTextViewText(R.id.home_name, fixure.getHomeTeamName());
-            remoteViews.setTextViewText(R.id.away_name, fixure.getAwayTeamName());
+        Fixure fixure = fixures.get(0);
+        final RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
+                R.layout.appwidget_view);
+        remoteViews.setTextViewText(R.id.home_name, fixure.getHomeTeamName());
+        remoteViews.setTextViewText(R.id.away_name, fixure.getAwayTeamName());
 
-            final Intent intent = new Intent(context, FixuresRemoteViewService.class);
-            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
-            remoteViews.setRemoteAdapter(widgetId, R.id.fixuresListView, intent);
+        final Intent intent = new Intent(context, FixuresRemoteViewService.class);
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+        intent.putExtra(Constant.FIXURES_DATA, fixuresJson);
+        remoteViews.setRemoteAdapter(widgetId, R.id.fixuresListView, intent);
 
-            final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-            appWidgetManager.updateAppWidget(widgetId, remoteViews);
-        }
+        final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        appWidgetManager.updateAppWidget(widgetId, remoteViews);
     }
 }

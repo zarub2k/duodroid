@@ -34,7 +34,7 @@ public class FixuresRemoteViewFactory implements RemoteViewsFactory {
         intent_ = intent;
         widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
                 AppWidgetManager.INVALID_APPWIDGET_ID);
-        populateFixures(intent);
+//        populateFixures(intent);
     }
 
     @Override
@@ -91,15 +91,18 @@ public class FixuresRemoteViewFactory implements RemoteViewsFactory {
 
     private void populateFixures(Intent intent) {
         final String fixuresJson = intent.getStringExtra(Constant.FIXURES_DATA);
+        Log.v(LOG_TAG, "Fixures Json value: "  + fixuresJson);
+
         final List<Fixure> fixures = FixuresJsonProcessor.getInstance().getFixures(fixuresJson);
+        Log.v(LOG_TAG, "Size of fixures here: " + fixures);
         if (fixures == null || fixures.isEmpty()) {
             return;
         }
-
+//
         fixures_.addAll(fixures);
-        fixures_.add(getFixure("H1", "A1"));
-//        fixures.add(getFixure("H2", "A2"));
-//        fixures.add(getFixure("H3", "A3"));
+//        fixures_.add(getFixure("H1", "A1"));
+//        fixures_.add(getFixure("H2", "A2"));
+//        fixures_.add(getFixure("H3", "A3"));
     }
 
     private Fixure getFixure(String homeTeam, String awayTeam) {
