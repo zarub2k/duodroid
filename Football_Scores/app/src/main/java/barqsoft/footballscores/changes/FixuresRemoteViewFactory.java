@@ -19,7 +19,6 @@ import barqsoft.footballscores.R;
  *
  * Factory class implementation for remote view
  */
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class FixuresRemoteViewFactory implements RemoteViewsFactory {
     private static final String LOG_TAG = FixuresRemoteViewFactory.class.getSimpleName();
 
