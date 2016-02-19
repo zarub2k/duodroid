@@ -47,8 +47,10 @@ public class FixuresJsonProcessor {
         return fixures;
     }
 
-    private Fixure getFixure(JSONObject fixureJson) {
+    private Fixure getFixure(JSONObject fixureJson) throws JSONException {
         final Fixure fixure = new Fixure();
+        fixure.setHomeTeamName(fixureJson.getString(FixureJsonKeys.HOME_TEAM_NAME.getKey()));
+        fixure.setAwayTeamName(fixureJson.getString(FixureJsonKeys.AWAY_TEAM_NAME.getKey()));
         return fixure;
     }
 }

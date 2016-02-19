@@ -22,7 +22,7 @@ public class FootballFixuresService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         Log.v(LOG_TAG, "Enters onHandleIntent");
 
-        final String fixuresJson = FootballUriConnector.getInstance().getJson(this, "n3");
+        final String fixuresJson = FootballUriConnector.getInstance().getJson(this, "n1");
 //        FixuresJsonProcessor.getInstance().getFixures(fixuresJson);
 
         final int widgetId = intent.getIntExtra(Constant.WIDGET_ID, 0);

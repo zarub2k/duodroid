@@ -12,6 +12,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:text="VS" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/away_name" />
 
 </LinearLayout>
