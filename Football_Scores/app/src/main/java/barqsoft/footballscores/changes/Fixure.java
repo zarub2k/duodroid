@@ -4,6 +4,8 @@ import java.util.Date;
 
 /**
  * @author tham
+ *
+ * Bean holder for fixure Json information
  */
 public class Fixure {
     private String href;
