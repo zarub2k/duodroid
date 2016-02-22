@@ -44,7 +44,7 @@ public class FixuresRemoteViewFactory implements RemoteViewsFactory {
 
     @Override
     public void onDataSetChanged() {
-
+        populateFixures(intent_);
     }
 
     @Override
