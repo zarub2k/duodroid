@@ -10,7 +10,7 @@ import it.jaschke.alexandria.R;
 /**
  * @author tham
  *
- * Activity to capture the Barcode using camera module
+ * Activity to capture the Barcode using camera functionality.
  */
 public class BarcodeCaptureActivity extends Activity {
 
