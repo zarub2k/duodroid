@@ -2,6 +2,7 @@ package it.jaschke.alexandria.changes;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.support.annotation.RequiresPermission;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
 
+import com.google.android.gms.common.images.Size;
 import com.google.android.gms.vision.CameraSource;
 
 import java.io.IOException;
@@ -42,8 +44,41 @@ public class CameraSourcePreview extends ViewGroup {
     }
 
     @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+    protected void onLayout(boolean changed,
+                            int left, int top, int right, int bottom) {
+        int width = 320;
+        int height = 240;
 
+        if (cameraSource_ != null) {
+            final Size previewSize = cameraSource_.getPreviewSize();
+            if (previewSize != null) {
+                width = previewSize.getWidth();
+                height = previewSize.getHeight();
+            }
+        }
+
+        if (isPortraitMode()) {
+            int temp = width;
+            width = height;
+            height = temp;
+        }
+
+        final int layoutWidth = right - left;
+        final int layoutHeight = bottom - top;
+    }
+
+    private boolean isPortraitMode() {
+        final int orientation = context_.getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            return false;
+        }
+
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            return true;
+        }
+
+        Log.i(LOG_TAG, "isPortraitmode returns false by default");
+        return false;
     }
 
     @RequiresPermission(Manifest.permission.CAMERA)
