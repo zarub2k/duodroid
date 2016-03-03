@@ -65,20 +65,26 @@ public class CameraSourcePreview extends ViewGroup {
 
         final int layoutWidth = right - left;
         final int layoutHeight = bottom - top;
-    }
 
-    private boolean isPortraitMode() {
-        final int orientation = context_.getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            return false;
+        int childWidth = layoutWidth;
+        int childHeight = (int)(((float) layoutWidth / (float) width) * height);
+
+        if (childHeight > layoutHeight) {
+            childHeight = layoutHeight;
+            childWidth = (int)(((float) layoutHeight / (float) height) * width);
         }
 
-        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-            return true;
+        for (int i = 0; i < getChildCount(); ++i) {
+            getChildAt(i).layout(0, 0, childWidth, childHeight);
         }
 
-        Log.i(LOG_TAG, "isPortraitmode returns false by default");
-        return false;
+        try {
+            startIfReady();
+        } catch (SecurityException se) {
+            Log.e(LOG_TAG,"Do not have permission to start the camera", se);
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Could not start camera source.", e);
+        }
     }
 
     @RequiresPermission(Manifest.permission.CAMERA)
@@ -115,6 +121,20 @@ public class CameraSourcePreview extends ViewGroup {
         }
     }
 
+    private boolean isPortraitMode() {
+        final int orientation = context_.getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            return false;
+        }
+
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            return true;
+        }
+
+        Log.i(LOG_TAG, "isPortraitmode returns false by default");
+        return false;
+    }
+
     private class SurfaceCallback implements SurfaceHolder.Callback {
 
         @Override
@@ -123,10 +143,10 @@ public class CameraSourcePreview extends ViewGroup {
 
             try {
                 startIfReady();
+            } catch (SecurityException se) {
+                Log.e(LOG_TAG,"Do not have permission to start the camera", se);
             } catch (IOException e) {
-                Log.e(LOG_TAG, "Could not start camera source", e);
-            } catch (SecurityException e) {
-                Log.e(LOG_TAG, "Do not have permission start camera", e);
+                Log.e(LOG_TAG, "Could not start camera source.", e);
             }
         }
 
