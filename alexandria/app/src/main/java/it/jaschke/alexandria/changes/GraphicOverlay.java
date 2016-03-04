@@ -12,6 +12,8 @@ import java.util.Set;
 
 /**
  * @author tham
+ *
+ * Overlay rendering for camera object
  */
 public class GraphicOverlay<T extends GraphicOverlay.Graphic> extends View {
     private final Object lock_ = new Object();
@@ -24,8 +26,6 @@ public class GraphicOverlay<T extends GraphicOverlay.Graphic> extends View {
     private int cameraFacing_ = CameraSource.CAMERA_FACING_BACK;
     private Set<T> graphics_ = new HashSet<>();
     private T firstGraphic_;
-
-
 
     public GraphicOverlay(Context context, AttributeSet attr) {
         super(context, attr);
