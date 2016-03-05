@@ -13,6 +13,7 @@ import it.jaschke.alexandria.R;
  * Activity to capture the Barcode using camera functionality.
  */
 public class BarcodeCaptureActivity extends Activity {
+    private static final String LOG_TAG = BarcodeCaptureActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,7 @@ public class BarcodeCaptureActivity extends Activity {
     }
 
     private void startCameraPreview() {
-//        CameraSourcePreview preview = (CameraSourcePreview) findViewById(R.id.preview);
+        CameraSourcePreview preview = (CameraSourcePreview) findViewById(R.id.preview);
         findViewById(R.id.graphicOverlay);
     }
 }
