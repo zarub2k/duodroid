@@ -97,4 +97,20 @@ public class GraphicOverlay<T extends GraphicOverlay.Graphic> extends View {
 
         postInvalidate();
     }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        synchronized (lock_) {
+            if (previewWidth_ != 0 && previewHeight_ != 0) {
+                widthScaleFactor_ = (float)canvas.getWidth() / (float)previewWidth_;
+                heightScaleFactor_ = (float)canvas.getHeight() / (float)previewHeight_;
+            }
+
+            for (Graphic graphic : graphics_) {
+                graphic.draw(canvas);
+            }
+        }
+    }
 }
