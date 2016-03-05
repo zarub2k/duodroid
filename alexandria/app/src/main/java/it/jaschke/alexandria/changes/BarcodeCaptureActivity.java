@@ -2,6 +2,7 @@ package it.jaschke.alexandria.changes;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
@@ -26,6 +27,8 @@ public class BarcodeCaptureActivity extends Activity {
     }
 
     private void startCameraPreview() {
+        Log.i(LOG_TAG, "Enters startCameraPreview()");
+        
         CameraSourcePreview preview = (CameraSourcePreview) findViewById(R.id.preview);
         findViewById(R.id.graphicOverlay);
     }
