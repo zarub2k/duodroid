@@ -45,8 +45,8 @@ public class BarcodeCaptureActivity extends Activity {
 
     private void startCameraPreview() {
         Log.i(LOG_TAG, "Enters startCameraPreview()");
-        
-        CameraSourcePreview preview = (CameraSourcePreview) findViewById(R.id.preview);
+
+        cameraSourcePreview = (CameraSourcePreview) findViewById(R.id.preview);
         findViewById(R.id.graphicOverlay);
     }
 }
