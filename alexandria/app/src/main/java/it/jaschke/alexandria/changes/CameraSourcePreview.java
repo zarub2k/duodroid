@@ -131,7 +131,7 @@ public class CameraSourcePreview extends ViewGroup {
             return true;
         }
 
-        Log.i(LOG_TAG, "isPortraitmode returns false by default");
+        Log.i(LOG_TAG, "isPortrait mode returns false by default");
         return false;
     }
 
