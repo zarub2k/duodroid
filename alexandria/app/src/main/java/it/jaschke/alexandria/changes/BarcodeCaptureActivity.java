@@ -66,9 +66,26 @@ public class BarcodeCaptureActivity extends Activity {
 
     private void requestCameraPermission() {
         Log.w(LOG_TAG, "Camera permission is NOT granted; Requesting permission");
+
+        final String[] permissions = new String[] {Manifest.permission.CAMERA};
+        if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+            ActivityCompat.requestPermissions(this, permissions, HANDLE_CAMERA_PERMISSION);
+            return;
+        }
+
+        final Activity current = this;
+
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityCompat.requestPermissions(current, permissions, HANDLE_CAMERA_PERMISSION);
+            }
+        };
     }
 
     private void createCameraSource(boolean hasAutoFocus, boolean canUseFlash) {
         Log.i(LOG_TAG, "Camera permission is already granted; Creating camera source");
+
+
     }
 }
