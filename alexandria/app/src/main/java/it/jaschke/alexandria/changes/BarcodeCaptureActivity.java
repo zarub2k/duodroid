@@ -2,6 +2,7 @@ package it.jaschke.alexandria.changes;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -86,6 +87,7 @@ public class BarcodeCaptureActivity extends Activity {
     private void createCameraSource(boolean hasAutoFocus, boolean canUseFlash) {
         Log.i(LOG_TAG, "Camera permission is already granted; Creating camera source");
 
+        final Context context = getApplicationContext();
 
     }
 }
