@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.hardware.Camera;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
@@ -105,5 +107,18 @@ public class BarcodeCaptureActivity extends Activity {
         if (hasLowStorage) {
             Toast.makeText(this, "Low storage", Toast.LENGTH_LONG).show();
         }
+
+//        CameraSource.Builder builder = new CameraSource.Builder(getApplicationContext(), barcodeDetector)
+//                .setFacing(CameraSource.CAMERA_FACING_BACK)
+//                .setRequestedPreviewSize(1600, 1024)
+//                .setRequestedFps(15.0f);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+//            builder = builder.setFocusMode(
+//                    canUseFlash ? Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE : null);
+//        }
+//
+//        cameraSource = builder
+//                .setFlashMode(canUseFlash ? Camera.Parameters.FLASH_MODE_TORCH : null)
+//                .build();
     }
 }
