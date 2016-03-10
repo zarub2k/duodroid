@@ -3,6 +3,8 @@ package it.jaschke.alexandria.changes;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -10,8 +12,10 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.vision.CameraSource;
+import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import it.jaschke.alexandria.R;
@@ -88,6 +92,18 @@ public class BarcodeCaptureActivity extends Activity {
         Log.i(LOG_TAG, "Camera permission is already granted; Creating camera source");
 
         final Context context = getApplicationContext();
+        final BarcodeTrackerFactory trackerFactory = new BarcodeTrackerFactory(graphicOverlay);
+        final BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(context).build();
+        barcodeDetector.setProcessor(new MultiProcessor.Builder<>(trackerFactory).build());
 
+        if (!barcodeDetector.isOperational()) {
+            Log.w(LOG_TAG, "Detector dependencies are NOT yet available!");
+        }
+
+        final IntentFilter intentFilter = new IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW);
+        boolean hasLowStorage = registerReceiver(null, intentFilter) != null;
+        if (hasLowStorage) {
+            Toast.makeText(this, "Low storage", Toast.LENGTH_LONG).show();
+        }
     }
 }
