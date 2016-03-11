@@ -16,9 +16,13 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+
+import java.io.IOException;
 
 import it.jaschke.alexandria.R;
 
@@ -125,5 +129,31 @@ public class BarcodeCaptureActivity extends Activity {
 //        cameraSource = builder
 //                .setFlashMode(canUseFlash ? Camera.Parameters.FLASH_MODE_TORCH : null)
 //                .build();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startCameraSource();
+    }
+
+    private void startCameraSource() throws SecurityException {
+        final int code = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
+        if (code != ConnectionResult.SUCCESS) {
+            GoogleApiAvailability.getInstance()
+                    .getErrorDialog(this, code, HANDLE_GMS)
+                    .show();
+        }
+
+        if (cameraSource != null) {
+            try {
+                cameraSourcePreview.start(cameraSource);
+            } catch (IOException e) {
+                Log.e(LOG_TAG, "Unable to start camera source", e);
+                
+                cameraSource.release();
+                cameraSource = null;
+            }
+        }
     }
 }
