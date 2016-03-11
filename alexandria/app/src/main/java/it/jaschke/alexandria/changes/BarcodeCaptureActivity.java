@@ -50,8 +50,6 @@ public class BarcodeCaptureActivity extends Activity {
         setContentView(R.layout.activity_barcode);
 
         startCameraPreview();
-
-        final BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(this).build();
     }
 
     private void startCameraPreview() {
@@ -105,15 +103,20 @@ public class BarcodeCaptureActivity extends Activity {
         final IntentFilter intentFilter = new IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW);
         boolean hasLowStorage = registerReceiver(null, intentFilter) != null;
         Log.i(LOG_TAG, "Has low storage: " + hasLowStorage);
-        
+
         if (hasLowStorage) {
             Toast.makeText(this, "Low storage", Toast.LENGTH_LONG).show();
         }
 
-//        CameraSource.Builder builder = new CameraSource.Builder(getApplicationContext(), barcodeDetector)
-//                .setFacing(CameraSource.CAMERA_FACING_BACK)
-//                .setRequestedPreviewSize(1600, 1024)
-//                .setRequestedFps(15.0f);
+
+        CameraSource.Builder builder = new CameraSource.Builder(getApplicationContext(), barcodeDetector)
+                .setFacing(CameraSource.CAMERA_FACING_BACK)
+                .setRequestedPreviewSize(1600, 1024)
+                .setRequestedFps(15.0f);
+
+        cameraSource = builder
+                .setAutoFocusEnabled(hasAutoFocus)
+                .build();
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 //            builder = builder.setFocusMode(
 //                    canUseFlash ? Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE : null);
