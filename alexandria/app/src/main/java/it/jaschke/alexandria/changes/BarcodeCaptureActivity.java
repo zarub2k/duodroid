@@ -104,6 +104,8 @@ public class BarcodeCaptureActivity extends Activity {
 
         final IntentFilter intentFilter = new IntentFilter(Intent.ACTION_DEVICE_STORAGE_LOW);
         boolean hasLowStorage = registerReceiver(null, intentFilter) != null;
+        Log.i(LOG_TAG, "Has low storage: " + hasLowStorage);
+        
         if (hasLowStorage) {
             Toast.makeText(this, "Low storage", Toast.LENGTH_LONG).show();
         }
