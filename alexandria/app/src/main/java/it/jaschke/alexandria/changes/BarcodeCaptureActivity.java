@@ -137,6 +137,15 @@ public class BarcodeCaptureActivity extends Activity {
         startCameraSource();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (cameraSourcePreview != null) {
+            cameraSourcePreview.stop();
+        }
+    }
+
     private void startCameraSource() throws SecurityException {
         final int code = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
         if (code != ConnectionResult.SUCCESS) {
@@ -150,7 +159,7 @@ public class BarcodeCaptureActivity extends Activity {
                 cameraSourcePreview.start(cameraSource);
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Unable to start camera source", e);
-                
+
                 cameraSource.release();
                 cameraSource = null;
             }
