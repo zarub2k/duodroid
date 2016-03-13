@@ -146,6 +146,10 @@ public class BarcodeCaptureActivity extends Activity {
         }
     }
 
+    /**
+     * Method to start a camera
+     * @throws SecurityException
+     */
     private void startCameraSource() throws SecurityException {
         final int code = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
         if (code != ConnectionResult.SUCCESS) {
