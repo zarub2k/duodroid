@@ -112,7 +112,6 @@ public class BarcodeCaptureActivity extends Activity {
             Toast.makeText(this, "Low storage", Toast.LENGTH_LONG).show();
         }
 
-
         CameraSource.Builder builder = new CameraSource.Builder(getApplicationContext(), barcodeDetector)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
                 .setRequestedPreviewSize(1600, 1024)
