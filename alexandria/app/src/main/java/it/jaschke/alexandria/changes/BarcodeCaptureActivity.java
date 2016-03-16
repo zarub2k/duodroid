@@ -51,7 +51,7 @@ public class BarcodeCaptureActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcode);
 
-        startCameraPreview();
+        startCameraPreview(); //Starting the camera view
     }
 
     private void startCameraPreview() {
