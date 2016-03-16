@@ -64,6 +64,7 @@ public class BarcodeCaptureActivity extends Activity {
         final boolean canUseFlash = getIntent().getBooleanExtra(USEFLASH, false);
 
         final int cameraPermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        Log.i(LOG_TAG, "Camera permission: " + cameraPermission);
         if (cameraPermission == PackageManager.PERMISSION_GRANTED) {
             createCameraSource(hasAutoFocus, canUseFlash);
         } else {
