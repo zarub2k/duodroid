@@ -72,6 +72,9 @@ public class BarcodeCaptureActivity extends Activity {
         }
     }
 
+    /**
+     * Method to request camera permission
+     */
     private void requestCameraPermission() {
         Log.w(LOG_TAG, "Camera permission is NOT granted; Requesting permission");
 
