@@ -1,5 +1,7 @@
 package it.jaschke.alexandria.changes;
 
+import android.util.Log;
+
 import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.Tracker;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -18,6 +20,7 @@ public class BarcodeTrackerFactory implements MultiProcessor.Factory<Barcode> {
 
     @Override
     public Tracker<Barcode> create(Barcode barcode) {
+        Log.i(LOG_TAG, "Enters create()");
         BarcodeGraphic graphic = new BarcodeGraphic(overlay);
         return new BarcodeGraphicTracker(overlay, graphic);
     }

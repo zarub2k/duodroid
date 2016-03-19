@@ -96,7 +96,7 @@ public class BarcodeCaptureActivity extends Activity {
 
     /**
      * Method to create camera source based on the given values of auto focus and flash
-     * 
+     *
      * @param hasAutoFocus
      * @param canUseFlash
      */
