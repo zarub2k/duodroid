@@ -94,6 +94,12 @@ public class BarcodeCaptureActivity extends Activity {
         };
     }
 
+    /**
+     * Method to create camera source based on the given values of auto focus and flash
+     * 
+     * @param hasAutoFocus
+     * @param canUseFlash
+     */
     private void createCameraSource(boolean hasAutoFocus, boolean canUseFlash) {
         Log.i(LOG_TAG, "Camera permission is already granted; Creating camera source");
 
