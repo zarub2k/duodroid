@@ -38,6 +38,10 @@
                 android:value=".MainActivity" />
         </activity>
 
+        <activity android:name=".changes.BarcodeCaptureActivity"
+            android:parentActivityName=".MainActivity"
+            android:label="Barcode scan" />
+
         <provider
             android:name=".data.BookProvider"
             android:authorities="it.jaschke.alexandria"

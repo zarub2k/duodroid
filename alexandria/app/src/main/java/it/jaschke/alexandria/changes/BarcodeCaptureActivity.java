@@ -65,6 +65,7 @@ public class BarcodeCaptureActivity extends Activity {
 
         final int cameraPermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         Log.i(LOG_TAG, "Camera permission: " + cameraPermission);
+
         if (cameraPermission == PackageManager.PERMISSION_GRANTED) {
             createCameraSource(hasAutoFocus, canUseFlash);
         } else {
@@ -167,7 +168,7 @@ public class BarcodeCaptureActivity extends Activity {
 
         if (cameraSource != null) {
             try {
-                cameraSourcePreview.start(cameraSource);
+                cameraSourcePreview.start(cameraSource, graphicOverlay);
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Unable to start camera source", e);
 

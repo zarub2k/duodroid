@@ -27,6 +27,8 @@ public class CameraSourcePreview extends ViewGroup {
     private SurfaceView surfaceView_;
     private CameraSource cameraSource_;
 
+    private GraphicOverlay graphicOverlay_;
+
     private boolean isStartRequested;
     private boolean isSurfaceAvailable;
 
@@ -88,12 +90,13 @@ public class CameraSourcePreview extends ViewGroup {
     }
 
     @RequiresPermission(Manifest.permission.CAMERA)
-    public void start(CameraSource cameraSource) throws IOException, SecurityException {
+    public void start(CameraSource cameraSource, GraphicOverlay overlay) throws IOException, SecurityException {
         if (cameraSource == null) {
             stop();
         }
 
         cameraSource_ = cameraSource;
+        graphicOverlay_ = overlay;
 
         if (cameraSource_ != null) {
             isStartRequested = true;
@@ -117,7 +120,22 @@ public class CameraSourcePreview extends ViewGroup {
     @RequiresPermission(Manifest.permission.CAMERA)
     private void startIfReady() throws IOException, SecurityException {
         if (isStartRequested && isSurfaceAvailable) {
+            cameraSource_.start(surfaceView_.getHolder());
+            if (graphicOverlay_ != null) {
+                final Size previewSize = cameraSource_.getPreviewSize();
+                int min = Math.min(previewSize.getWidth(), previewSize.getHeight());
+                int max = Math.max(previewSize.getWidth(), previewSize.getHeight());
 
+                if (isPortraitMode()) {
+                    graphicOverlay_.setCameraInfo(min, max, cameraSource_.getCameraFacing());
+                } else {
+                    graphicOverlay_.setCameraInfo(max, min, cameraSource_.getCameraFacing());
+                }
+
+                graphicOverlay_.clear();
+            }
+
+            isStartRequested = false;
         }
     }
 

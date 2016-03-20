@@ -74,6 +74,12 @@ public class GraphicOverlay<T extends GraphicOverlay.Graphic> extends View {
         postInvalidate();
     }
 
+    public T getFirstGraphic() {
+        synchronized (lock_) {
+            return firstGraphic_;
+        }
+    }
+
     public void add(T graphic) {
         synchronized (lock_) {
             graphics_.add(graphic);
@@ -112,5 +118,15 @@ public class GraphicOverlay<T extends GraphicOverlay.Graphic> extends View {
                 graphic.draw(canvas);
             }
         }
+    }
+
+    public void setCameraInfo(int previewWidth, int previewHeight, int facing) {
+        synchronized (lock_) {
+            previewWidth_ = previewWidth;
+            previewHeight_ = previewHeight;
+            cameraFacing_ = facing;
+        }
+
+        postInvalidate();
     }
 }
