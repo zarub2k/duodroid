@@ -10,6 +10,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 
 import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.vision.barcode.Barcode;
 
 import it.jaschke.alexandria.changes.BarcodeCaptureActivity;
 import it.jaschke.alexandria.data.AlexandriaContract;
@@ -42,6 +44,8 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
 
     private String mScanFormat = "Format:";
     private String mScanContents = "Contents:";
+
+    private TextView titleView;
 
     public AddBook() {}
 
@@ -156,7 +160,8 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
         }
 
         String bookTitle = data.getString(data.getColumnIndex(AlexandriaContract.BookEntry.TITLE));
-        ((TextView) rootView.findViewById(R.id.bookTitle)).setText(bookTitle);
+        titleView = (TextView) rootView.findViewById(R.id.bookTitle);
+        titleView.setText(bookTitle);
 
         String bookSubTitle = data.getString(data.getColumnIndex(AlexandriaContract.BookEntry.SUBTITLE));
         ((TextView) rootView.findViewById(R.id.bookSubTitle)).setText(bookSubTitle);
@@ -201,15 +206,22 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (RC_BARCODE_CAPTURE != requestCode) {
-            super.onActivityResult(requestCode, resultCode, data);
-            return;
-        }
+        Log.v(LOG_TAG, "Activity result reached with code: " + resultCode);
 
-        if (resultCode == CommonStatusCodes.SUCCESS) {
-            if (data != null) {
-//                data.getParcelableExtra(BarcodeCaptureActivity.BarCodeObject);
+        if (RC_BARCODE_CAPTURE != requestCode) {
+            if (resultCode == CommonStatusCodes.SUCCESS) {
+                if (data != null) {
+                    Barcode barcode = data.getParcelableExtra(BarcodeCaptureActivity.BARCODE_OBJECT);
+                    titleView.setText(barcode.displayValue);
+                    Log.d(LOG_TAG, "Barcode read: " + barcode.displayValue);
+                } else {
+                    Toast.makeText(this.getActivity(), "No barcode captured", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this.getActivity(), "Problem while capturing barcode", Toast.LENGTH_SHORT).show();
             }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 }

@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.Toast;
@@ -37,7 +39,7 @@ public class BarcodeCaptureActivity extends Activity {
 
     private static final String AUTOFOCUS = "AutoFocus";
     private static final String USEFLASH = "UseFlash";
-    private static final String BARCODE_OBJECT = "Barcode";
+    public static final String BARCODE_OBJECT = "Barcode";
 
     private CameraSource cameraSource;
     private CameraSourcePreview cameraSourcePreview;
@@ -93,6 +95,11 @@ public class BarcodeCaptureActivity extends Activity {
                 ActivityCompat.requestPermissions(current, permissions, HANDLE_CAMERA_PERMISSION);
             }
         };
+
+        Snackbar.make(graphicOverlay, "Requesting camera",
+                Snackbar.LENGTH_INDEFINITE)
+                .setAction("Ok", listener)
+                .show();
     }
 
     /**
@@ -152,6 +159,15 @@ public class BarcodeCaptureActivity extends Activity {
         if (cameraSourcePreview != null) {
             cameraSourcePreview.stop();
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent e) {
+        boolean b = scaleGestureDetector.onTouchEvent(e);
+
+        boolean c = gestureDetector.onTouchEvent(e);
+
+        return b || c || super.onTouchEvent(e);
     }
 
     /**
