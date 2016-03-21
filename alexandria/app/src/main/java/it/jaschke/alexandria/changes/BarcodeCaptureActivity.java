@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -18,8 +19,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.vision.CameraSource;
+import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.MultiProcessor;
+import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
@@ -54,6 +56,9 @@ public class BarcodeCaptureActivity extends Activity {
         setContentView(R.layout.activity_barcode);
 
         startCameraPreview(); //Starting the camera view
+
+        gestureDetector = new GestureDetector(this, new CaptureGestureListener());
+        scaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
     }
 
     private void startCameraPreview() {
@@ -133,17 +138,17 @@ public class BarcodeCaptureActivity extends Activity {
                 .setRequestedPreviewSize(1600, 1024)
                 .setRequestedFps(15.0f);
 
-        cameraSource = builder
-                .setAutoFocusEnabled(hasAutoFocus)
-                .build();
+//        cameraSource = builder
+//                .setAutoFocusEnabled(hasAutoFocus)
+//                .build();
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 //            builder = builder.setFocusMode(
 //                    canUseFlash ? Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE : null);
 //        }
 //
-//        cameraSource = builder
-//                .setFlashMode(canUseFlash ? Camera.Parameters.FLASH_MODE_TORCH : null)
-//                .build();
+        cameraSource = builder
+                .setFlashMode(canUseFlash ? Camera.Parameters.FLASH_MODE_TORCH : null)
+                .build();
     }
 
     @Override
@@ -191,6 +196,53 @@ public class BarcodeCaptureActivity extends Activity {
                 cameraSource.release();
                 cameraSource = null;
             }
+        }
+    }
+
+    private boolean onTap(float rawX, float rawY) {
+        BarcodeGraphic graphic = graphicOverlay.getFirstGraphic();
+        Barcode barcode = null;
+        if (graphic != null) {
+            barcode = graphic.getBarcode();
+            if (barcode != null) {
+                Intent data = new Intent();
+                data.putExtra(BARCODE_OBJECT, barcode);
+                setResult(CommonStatusCodes.SUCCESS, data);
+                finish();
+            }
+            else {
+                Log.d(LOG_TAG, "barcode data is null");
+            }
+        }
+        else {
+            Log.d(LOG_TAG,"no barcode detected");
+        }
+        return barcode != null;
+    }
+
+    private class CaptureGestureListener extends GestureDetector.SimpleOnGestureListener {
+
+        @Override
+        public boolean onSingleTapConfirmed(MotionEvent e) {
+
+            return onTap(e.getRawX(), e.getRawY()) || super.onSingleTapConfirmed(e);
+        }
+    }
+
+    private class ScaleListener implements ScaleGestureDetector.OnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            return false;
+        }
+
+        @Override
+        public boolean onScaleBegin(ScaleGestureDetector detector) {
+            return true;
+        }
+
+        @Override
+        public void onScaleEnd(ScaleGestureDetector detector) {
+            cameraSource.doZoom(detector.getScaleFactor());
         }
     }
 }
