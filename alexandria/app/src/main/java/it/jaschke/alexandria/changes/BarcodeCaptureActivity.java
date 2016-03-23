@@ -220,6 +220,9 @@ public class BarcodeCaptureActivity extends Activity {
         return barcode != null;
     }
 
+    /**
+     * Listener to handle on touch event
+     */
     private class CaptureGestureListener extends GestureDetector.SimpleOnGestureListener {
 
         @Override
