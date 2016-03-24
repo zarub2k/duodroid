@@ -232,6 +232,9 @@ public class BarcodeCaptureActivity extends Activity {
         }
     }
 
+    /**
+     * Listener to handle the scale event
+     */
     private class ScaleListener implements ScaleGestureDetector.OnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
