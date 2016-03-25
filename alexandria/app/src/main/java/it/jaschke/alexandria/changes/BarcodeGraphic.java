@@ -9,6 +9,8 @@ import com.google.android.gms.vision.barcode.Barcode;
 
 /**
  * @author tham
+ *
+ * Graphic generated from scan
  */
 public class BarcodeGraphic extends GraphicOverlay.Graphic {
     private static final String LOG_TAG = BarcodeGraphic.class.getSimpleName();
