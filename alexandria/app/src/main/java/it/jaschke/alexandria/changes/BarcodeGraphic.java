@@ -15,6 +15,7 @@ import com.google.android.gms.vision.barcode.Barcode;
 public class BarcodeGraphic extends GraphicOverlay.Graphic {
     private static final String LOG_TAG = BarcodeGraphic.class.getSimpleName();
 
+    //Indicates the possible colors
     private static final int[] colors = {
             Color.BLUE,
             Color.CYAN,
