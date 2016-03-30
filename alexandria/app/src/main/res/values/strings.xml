@@ -28,5 +28,5 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="about_text">This application gets book information from a Google API. All titles, cover images, and author information come from there.
     The original version of this app was built by Sascha Jaschke, and a modified version is given to students in the Udacity Android Nanodegree program. </string>
-    <string name="google_app_id">135341771183</string>
+    <string name="google_app_id"></string> //Removed based on the security concern
 </resources>
