@@ -30,8 +30,9 @@ import it.jaschke.alexandria.data.AlexandriaContract;
  * <p/>
  */
 public class BookService extends IntentService {
-
     private final String LOG_TAG = BookService.class.getSimpleName();
+
+    private static final String SERVICE_NAME = "Alexandria";
 
     public static final String FETCH_BOOK = "it.jaschke.alexandria.services.action.FETCH_BOOK";
     public static final String DELETE_BOOK = "it.jaschke.alexandria.services.action.DELETE_BOOK";
@@ -39,7 +40,7 @@ public class BookService extends IntentService {
     public static final String EAN = "it.jaschke.alexandria.services.extra.EAN";
 
     public BookService() {
-        super("Alexandria");
+        super(SERVICE_NAME);
     }
 
     @Override
