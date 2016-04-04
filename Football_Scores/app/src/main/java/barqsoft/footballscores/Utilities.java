@@ -1,12 +1,10 @@
 package barqsoft.footballscores;
 
-import android.util.Log;
-
 /**
  * Created by yehya khaled on 3/3/2015.
  */
-public class Utilies {
-    private static final String LOG_TAG = Utilies.class.getSimpleName();
+public class Utilities {
+    private static final String LOG_TAG = Utilities.class.getSimpleName();
 
     public static final int SERIE_A = 357;
     public static final int PREMIER_LEGAUE = 354;
@@ -16,34 +14,34 @@ public class Utilies {
     public static final int PRIMERA_DIVISION_399 = 399;
     public static final int SEGUNDA_DIVISION = 400;
 
-    public static String getLeague(int league_num) {
+    public static int getLeague(int league_num) {
         switch (league_num) {
-            case SERIE_A : return "Seria A";
-            case PREMIER_LEGAUE : return "Premier League";
-            case CHAMPIONS_LEAGUE : return "UEFA Champions League";
-            case PRIMERA_DIVISION : return "Primera Division";
-            case PRIMERA_DIVISION_399 : return "Primera Division";
-            case BUNDESLIGA : return "Bundesliga";
-            case SEGUNDA_DIVISION: return "Segunda Division";
-            default: return "Not known League Please report";
+            case SERIE_A : return R.string.seriaa;
+            case PREMIER_LEGAUE : return R.string.premierleague;
+            case CHAMPIONS_LEAGUE : return R.string.champions_league;
+            case PRIMERA_DIVISION : return R.string.primeradivison;
+            case PRIMERA_DIVISION_399 : return R.string.primeradivison;
+            case BUNDESLIGA : return R.string.bundesliga;
+            case SEGUNDA_DIVISION: return R.string.segundadivision;
+            default: return R.string.unknown_division;
         }
     }
 
-    public static String getMatchDay(int match_day, int league_num) {
+    public static int getMatchDay(int match_day, int league_num) {
         if(league_num == CHAMPIONS_LEAGUE) {
             if (match_day <= 6) {
-                return "Group Stages, Matchday : 6";
+                return R.string.group_stage_6;
             } else if(match_day == 7 || match_day == 8) {
-                return "First Knockout round";
+                return R.string.first_knockout_round;
             } else if(match_day == 9 || match_day == 10) {
-                return "QuarterFinal";
+                return R.string.quarter_final;
             } else if(match_day == 11 || match_day == 12) {
-                return "SemiFinal";
+                return R.string.semi_final;
             } else {
-                return "Final";
+                return R.string.final_text;
             }
         } else {
-            return "Matchday : " + String.valueOf(match_day);
+            return match_day;
         }
     }
 
