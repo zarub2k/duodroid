@@ -72,8 +72,7 @@ public class BookService extends IntentService {
      * parameters.
      */
     private void fetchBook(String ean) {
-
-        if(ean.length()!=13){
+        if(ean.length() != 13) {
             return;
         }
 
@@ -85,7 +84,7 @@ public class BookService extends IntentService {
                 null  // sort order
         );
 
-        if(bookEntry.getCount()>0){
+        if(bookEntry.getCount() > 0){
             bookEntry.close();
             return;
         }
@@ -128,13 +127,18 @@ public class BookService extends IntentService {
             if (buffer.length() == 0) {
                 return;
             }
+
             bookJsonString = buffer.toString();
+            if (bookJsonString == null || bookJsonString.isEmpty()) {
+                return;
+            }
         } catch (Exception e) {
             Log.e(LOG_TAG, "Error ", e);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
             }
+
             if (reader != null) {
                 try {
                     reader.close();
@@ -142,7 +146,6 @@ public class BookService extends IntentService {
                     Log.e(LOG_TAG, "Error closing stream", e);
                 }
             }
-
         }
 
         final String ITEMS = "items";
