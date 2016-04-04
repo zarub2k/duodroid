@@ -216,7 +216,7 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.v(LOG_TAG, "Activity result reached with code: " + resultCode);
 
-        if (RC_BARCODE_CAPTURE != requestCode) {
+        if (RC_BARCODE_CAPTURE == requestCode) {
             if (resultCode == CommonStatusCodes.SUCCESS) {
                 if (data != null) {
                     Barcode barcode = data.getParcelableExtra(BarcodeCaptureActivity.BARCODE_OBJECT);
