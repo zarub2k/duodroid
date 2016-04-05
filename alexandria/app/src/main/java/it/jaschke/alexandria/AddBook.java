@@ -62,6 +62,7 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
 
         rootView = inflater.inflate(R.layout.fragment_add_book, container, false);
         ean = (EditText) rootView.findViewById(R.id.ean);
+        titleView = (TextView) rootView.findViewById(R.id.bookTitle);
 
         ean.addTextChangedListener(new TextWatcher() {
             @Override
@@ -160,7 +161,6 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
         }
 
         String bookTitle = data.getString(data.getColumnIndex(AlexandriaContract.BookEntry.TITLE));
-        titleView = (TextView) rootView.findViewById(R.id.bookTitle);
         titleView.setText(bookTitle);
 
         String bookSubTitle = data.getString(data.getColumnIndex(AlexandriaContract.BookEntry.SUBTITLE));

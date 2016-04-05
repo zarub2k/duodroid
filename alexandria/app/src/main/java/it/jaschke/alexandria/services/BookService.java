@@ -161,6 +161,10 @@ public class BookService extends IntentService {
         final String IMG_URL = "thumbnail";
 
         try {
+            if (bookJsonString == null || bookJsonString.isEmpty()) { //Already added the condition on the top
+                return;
+            }
+
             JSONObject bookJson = new JSONObject(bookJsonString);
             JSONArray bookArray;
             if(bookJson.has(ITEMS)){
